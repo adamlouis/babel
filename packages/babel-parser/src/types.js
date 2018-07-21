@@ -207,8 +207,8 @@ export type ReturnStatement = NodeBase & {
   argument: ?Expression,
 };
 
-export type FreeturnStatement = NodeBase & {
-  type: "FreeturnStatement",
+export type OptionReturnStatement = NodeBase & {
+  type: "OptionReturnStatement",
   argument: ?Expression,
 };
 

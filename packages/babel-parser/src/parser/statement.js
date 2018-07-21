@@ -116,8 +116,8 @@ export default class StatementParser extends ExpressionParser {
         return this.parseIfStatement(node);
       case tt._return:
       return this.parseReturnStatement(node);
-      case tt._freeturn:
-        return this.parseFreeturnStatement(node);
+      case tt._option_return:
+        return this.parseOptionReturnStatement(node);
       case tt._switch:
         return this.parseSwitchStatement(node);
       case tt._throw:
@@ -483,7 +483,7 @@ export default class StatementParser extends ExpressionParser {
   }
 
   // ADAM
-  parseFreeturnStatement(node: N.FreeturnStatement): N.FreeturnStatement {
+  parseOptionReturnStatement(node: N.OptionReturnStatement): N.OptionReturnStatement {
     if (!this.state.inFunction && !this.options.allowReturnOutsideFunction) {
       this.raise(this.state.start, "'return' outside of function");
     }
@@ -501,7 +501,7 @@ export default class StatementParser extends ExpressionParser {
       this.semicolon();
     }
 
-    return this.finishNode(node, "FreeturnStatement");
+    return this.finishNode(node, "OptionReturnStatement");
   }
 
   parseSwitchStatement(node: N.SwitchStatement): N.SwitchStatement {

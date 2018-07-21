@@ -54,7 +54,7 @@ function getObjectHash(obj) {
   return hash + 2147483647 + 1;
 };
 
-export function FreeturnStatement(node: Object) {
+export function OptionReturnStatement(node: Object) {
   var varName = 'optionReturn_' + getObjectHash(node); // 1) it's deterministic 2) we have it
   this.word("var");
   this.space();
