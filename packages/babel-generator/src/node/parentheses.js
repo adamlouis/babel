@@ -145,6 +145,8 @@ export function SequenceExpression(node: Object, parent: Object): boolean {
     t.isForStatement(parent) ||
     t.isThrowStatement(parent) ||
     t.isReturnStatement(parent) ||
+    t.type === "FreeturnStatement" || // ¯\_(ツ)_/¯
+    t.isFreeturnStatement(parent) ||
     (t.isIfStatement(parent) && parent.test === node) ||
     (t.isWhileStatement(parent) && parent.test === node) ||
     (t.isForInStatement(parent) && parent.right === node) ||
