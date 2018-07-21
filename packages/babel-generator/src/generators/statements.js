@@ -41,6 +41,53 @@ export function IfStatement(node: Object) {
   }
 }
 
+// @esmiralha @momo https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript-jquery
+function getObjectHash(obj) {
+  var str = JSON.stringify(obj);
+  var hash = 0, i, chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash + 2147483647 + 1;
+};
+
+export function OptionReturnStatement(node: Object) {
+  var varName = 'optionReturn_' + getObjectHash(node); // 1) it's deterministic 2) we have it
+  this.word("var");
+  this.space();
+  this.word(varName);
+  this.space();
+  this.token("=");
+  this.space();
+  this.token("("); // extra parens for good luck
+  this.print(node.argument, node);
+  this.token(")");
+  this.token(";");
+
+  this.newline();
+  this.word("if");
+  this.space();
+  this.token("(");
+  this.word(varName);
+  this.token(")");
+  this.space();
+  this.token("{");
+  this.newline();
+
+  this.indent();
+  this.word("return");
+  this.space();
+  this.word(varName);
+  this.token(";")
+  this.dedent();
+
+  this.newline();
+  this.token("}");
+}
+
 // Recursively get the last statement.
 function getLastStatement(statement) {
   if (!t.isStatement(statement.body)) return statement;
