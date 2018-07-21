@@ -115,7 +115,7 @@ export default class StatementParser extends ExpressionParser {
       case tt._if:
         return this.parseIfStatement(node);
       case tt._return:
-      return this.parseReturnStatement(node);
+        return this.parseReturnStatement(node);
       case tt._option_return:
         return this.parseOptionReturnStatement(node);
       case tt._switch:
@@ -482,24 +482,14 @@ export default class StatementParser extends ExpressionParser {
     return this.finishNode(node, "ReturnStatement");
   }
 
-  // ADAM
   parseOptionReturnStatement(node: N.OptionReturnStatement): N.OptionReturnStatement {
     if (!this.state.inFunction && !this.options.allowReturnOutsideFunction) {
       this.raise(this.state.start, "'return' outside of function");
     }
 
     this.next();
-
-    // In `return` (and `break`/`continue`), the keywords with
-    // optional arguments, we eagerly look for a semicolon or the
-    // possibility to insert one.
-
-    if (this.isLineTerminator()) {
-      node.argument = null;
-    } else {
-      node.argument = this.parseExpression();
-      this.semicolon();
-    }
+    node.argument = this.parseExpression();
+    this.semicolon();
 
     return this.finishNode(node, "OptionReturnStatement");
   }

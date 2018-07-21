@@ -165,9 +165,6 @@ export function DoWhileStatement(node: Object) {
 
 function buildLabelStatement(prefix, key = "label") {
   return function(node: Object) {
-    if (key === 'return') {
-      console.log('DEBUG RETURN', this.word)
-    }
     this.word(prefix);
 
     const label = node[key];
