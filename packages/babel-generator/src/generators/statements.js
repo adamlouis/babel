@@ -96,6 +96,7 @@ export function ReturnIfStatement(node: Object) {
 
   this.newline();
   this.token("}");
+  this.newline();
 }
 
 // Recursively get the last statement.
