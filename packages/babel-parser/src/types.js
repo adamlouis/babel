@@ -207,8 +207,8 @@ export type ReturnStatement = NodeBase & {
   argument: ?Expression,
 };
 
-export type OptionReturnStatement = NodeBase & {
-  type: "OptionReturnStatement",
+export type ReturnIfStatement = NodeBase & {
+  type: "ReturnIfStatement",
   argument: ?Expression,
 };
 

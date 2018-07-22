@@ -54,15 +54,20 @@ function getObjectHash(obj) {
   return hash + 2147483647 + 1;
 };
 
-export function OptionReturnStatement(node: Object) {
-  var varName = 'optionReturn_' + getObjectHash(node); // 1) it's deterministic 2) we have it
+export function ReturnIfStatement(node: Object) {
+  /* Creating a named var here seems unavoidable. Is there another way to do this?
+   * The var name must not collide with others and the transipiling should be deterministic.
+   * Use the hash of the node to get something that (likely) has these 2 properites.
+   */
+  var varName = 'ReturnIf_' + getObjectHash(node);
+
   this.word("var");
   this.space();
   this.word(varName);
   this.space();
   this.token("=");
   this.space();
-  this.token("("); // extra parens for good luck
+  this.token("("); // extra parens, for good luck
   this.print(node.argument, node);
   this.token(")");
   this.token(";");

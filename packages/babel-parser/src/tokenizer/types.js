@@ -169,7 +169,7 @@ export const keywords = {
   function: new KeywordTokenType("function", { startsExpr }),
   if: new KeywordTokenType("if"),
   return: new KeywordTokenType("return", { beforeExpr }),
-  option_return: new KeywordTokenType("option_return", { beforeExpr }),
+  returnif: new KeywordTokenType("returnif", { beforeExpr }),
   switch: new KeywordTokenType("switch"),
   throw: new KeywordTokenType("throw", { beforeExpr, prefix, startsExpr }),
   try: new KeywordTokenType("try"),
