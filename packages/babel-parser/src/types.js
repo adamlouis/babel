@@ -207,6 +207,11 @@ export type ReturnStatement = NodeBase & {
   argument: ?Expression,
 };
 
+export type ReturnIfStatement = NodeBase & {
+  type: "ReturnIfStatement",
+  argument: ?Expression,
+};
+
 export type LabeledStatement = NodeBase & {
   type: "LabeledStatement",
   label: Identifier,

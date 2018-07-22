@@ -116,6 +116,8 @@ export default class StatementParser extends ExpressionParser {
         return this.parseIfStatement(node);
       case tt._return:
         return this.parseReturnStatement(node);
+      case tt._returnif:
+        return this.parseReturnIfStatement(node);
       case tt._switch:
         return this.parseSwitchStatement(node);
       case tt._throw:
@@ -478,6 +480,18 @@ export default class StatementParser extends ExpressionParser {
     }
 
     return this.finishNode(node, "ReturnStatement");
+  }
+
+  parseReturnIfStatement(node: N.ReturnIfStatement): N.ReturnIfStatement {
+    if (!this.state.inFunction && !this.options.allowReturnOutsideFunction) {
+      this.raise(this.state.start, "'return' outside of function");
+    }
+
+    this.next();
+    node.argument = this.parseExpression();
+    this.semicolon();
+
+    return this.finishNode(node, "ReturnIfStatement");
   }
 
   parseSwitchStatement(node: N.SwitchStatement): N.SwitchStatement {

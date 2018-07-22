@@ -1360,7 +1360,7 @@ export default class Tokenizer extends LocationParser {
       }
     }
 
-    if (prevType === tt._return) {
+  if (prevType === tt._return || prevType === tt._returnif) {
       return lineBreak.test(
         this.input.slice(this.state.lastTokEnd, this.state.start),
       );

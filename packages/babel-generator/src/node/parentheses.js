@@ -145,6 +145,7 @@ export function SequenceExpression(node: Object, parent: Object): boolean {
     t.isForStatement(parent) ||
     t.isThrowStatement(parent) ||
     t.isReturnStatement(parent) ||
+    t.type === "ReturnIfStatement" || // keep my changes to 2 packages and ignore @babel/types. this will break other clients ¯\_(ツ)_/¯.
     (t.isIfStatement(parent) && parent.test === node) ||
     (t.isWhileStatement(parent) && parent.test === node) ||
     (t.isForInStatement(parent) && parent.right === node) ||
