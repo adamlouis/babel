@@ -54,15 +54,25 @@ function getObjectHash(obj) {
   return hash + 2147483647 + 1;
 };
 
-export function OptionReturnStatement(node: Object) {
-  var varName = 'optionReturn_' + getObjectHash(node); // 1) it's deterministic 2) we have it
+export function ReturnIfStatement(node: Object) {
+  /* Creating a named `var` seems unavoidable here. Is there another way?
+   * 
+   * If we name a var:
+   *     1) its name must not collide with others in our program
+   *     2) transipiling should remain deterministic
+   * 
+   * Using the hash of the AST node as variable name suffix (likely) achieves these 2 properites.
+   * This seems both clever and dirty, but it's what I went with.
+   */
+  var varName = 'returnIf_' + getObjectHash(node);
+
   this.word("var");
   this.space();
   this.word(varName);
   this.space();
   this.token("=");
   this.space();
-  this.token("("); // extra parens for good luck
+  this.token("("); // extra parens, for good luck
   this.print(node.argument, node);
   this.token(")");
   this.token(";");
